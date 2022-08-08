@@ -1,0 +1,50 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    pull-request-branch-name:
+      separator: '-'
+    labels:
+      - Dependabot
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - 'version-update:semver-major'
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule:
+      interval: monthly
+    pull-request-branch-name:
+      separator: '-'
+    labels:
+      - Dependabot
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - 'version-update:semver-major'
+  - package-ecosystem: npm
+    directory: /backend
+    schedule:
+      interval: monthly
+    pull-request-branch-name:
+      separator: '-'
+    labels:
+      - Dependabot
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - 'version-update:semver-major'
+  - package-ecosystem: pip
+    directory: /automationTest
+    schedule:
+      interval: monthly
+    pull-request-branch-name:
+      separator: '-'
+    labels:
+      - Dependabot
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - 'version-update:semver-major'
