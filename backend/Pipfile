@@ -7,6 +7,10 @@ name = "pypi"
 flask = "*"
 flask-pymongo = "*"
 python-dotenv = "*"
+flask-cors = "*"
+pandas = "*"
+yfinance = "*"
+pymongo = "*"
 
 [dev-packages]
 

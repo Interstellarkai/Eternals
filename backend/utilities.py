@@ -43,8 +43,8 @@ class Ticker:
 
 class Portfolio:
     def __init__(self, tickers):
+        # tickers = [{"symbol": "AAPL", "shares": "100", "purchase_date": "2021-08-09", "oneDay": "0", "sevenDay": "0", "total": "0"}]
         self.tickers = tickers
-        self.socket = yf.Ticker(self.ticker)
         self.total_return = 0
         self.total_one_day_return = 0
         self.total_seven_day_return = 0
@@ -56,7 +56,7 @@ class Portfolio:
         for ticker in self.tickers:
             # attributes of ticker
             symbol = yf.Ticker(ticker['symbol'])
-            shares = ticker['shares']
+            shares = int(ticker['shares'])
             purchase_date = datetime.datetime.strptime(
                 ticker['purchase_date'], "%Y-%m-%d").date()
 
@@ -75,8 +75,27 @@ class Portfolio:
             ticker['total'] = (data.Close.tail(1).values[0] -
                                data.Open.head(1).values[0]) * shares
 
+            # 2 decimal point
+            ticker['oneDay'] = round(ticker['oneDay'], 2)
+            ticker['sevenDay'] = round(ticker['sevenDay'], 2)
+            ticker['total'] = round(ticker['total'], 2)
+
     def update_portfolio(self):
         for ticker in self.tickers:
             self.total_return += ticker['total']
             self.total_one_day_return += ticker['oneDay']
             self.total_seven_day_return += ticker['sevenDay']
+
+        # 2 decimal point
+        self.total_return = round(self.total_return, 2)
+        self.total_one_day_return = round(self.total_one_day_return, 2)
+        self.total_seven_day_return = round(self.total_seven_day_return, 2)
+
+    def json_format(self):
+        res = {
+            "tickers": self.tickers,
+            "total_return": self.total_return,
+            "total_one_day_return": self.total_one_day_return,
+            "total_seven_day_return": self.total_seven_day_return
+        }
+        return res
