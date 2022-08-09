@@ -36,7 +36,7 @@
 }
 .auth-title > h1 {
 	font-weight: bold;
-	border-bottom: 1px solid #000;
+	border-bottom: 3px solid #000;
 }
 .auth-title > p {
 	font-size: 18px;
@@ -57,14 +57,14 @@
 }
 .auth-left,
 .auth-right {
-	border: 2px solid black;
+	border: 1px solid var(--secondary-light-blue);
 	margin: 50px;
 	border-radius: 10px;
 	justify-content: center;
 	align-items: center;
 	flex: 1;
 	display: flex;
-	background-color: var(--primary-gray);
+	background-color: var(--secondary-light-blue);
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
 }

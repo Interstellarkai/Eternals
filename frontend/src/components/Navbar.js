@@ -5,7 +5,9 @@ const Navbar = ({ view }) => {
 	return (
 		<div className='row'>
 			<div className='top-nav'>
-				<div className='logo-left'>Logo Left</div>
+				<Link to='/client/home'>
+					<div className='logo-left'></div>
+				</Link>
 				<div className='logo-right'>Logo Right</div>
 			</div>
 			{view === 'client' ? (
