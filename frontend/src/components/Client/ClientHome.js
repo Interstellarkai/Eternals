@@ -3,7 +3,7 @@ import Navbar from '../Navbar';
 const ClientHome = () => {
 	return (
 		<>
-			<Navbar />
+			<Navbar view='client' />
 		</>
 	);
 };

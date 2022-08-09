@@ -5,6 +5,13 @@
 .App {
 	text-align: center;
 }
+:root {
+	--primary-gray: #d0d0d0;
+	--primary-dark-blue: #284e7d;
+	--secondary-dark-blue: #1c61a4;
+	--primary-light-blue: #4b9fdb;
+	--secondary-light-blue: #8dc3e9;
+}
 
 .App-logo {
 	height: 40vmin;

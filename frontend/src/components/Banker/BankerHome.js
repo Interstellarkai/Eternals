@@ -1,7 +1,11 @@
 import React from 'react';
-
+import Navbar from '../Navbar';
 const BankerHome = () => {
-	return <div>BankerHome</div>;
+	return (
+		<>
+			<Navbar view='banker' />
+		</>
+	);
 };
 
 export default BankerHome;
