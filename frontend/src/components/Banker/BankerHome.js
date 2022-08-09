@@ -31,7 +31,7 @@ const BankerHome = () => {
 
 	return (
 		<>
-			<Navbar />
+			<Navbar view="banker"/>
 
 			<div className="grid-container" id="grid-container">
 				<div className="header-container">
@@ -43,10 +43,10 @@ const BankerHome = () => {
 				</div>
 
 			</div>
+
 		</>
 	);
 };
 
 export default BankerHome;
 
-// Test 

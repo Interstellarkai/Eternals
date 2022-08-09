@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Navbar from '../Navbar';
 import Menu from "./Menu"
+import Chat from './Chat/Chat';
 
 const ClientHome = () => {
 
@@ -32,17 +33,16 @@ const ClientHome = () => {
 
 	return (
 		<>
-			<Navbar />
-
+			<Navbar view='client' />
 			<div className="grid-container" id="grid-container">
 				<div className="header-container">
 					<h2>{"MicroStrategy Embedding SDK Example - "}{pageName}</h2>
 				</div>
 				<Menu></Menu>
 				<div className="content-container" id="content-container">
-					
 				</div>
 
+				<Chat />
 			</div>
 		</>
 	);

@@ -1,0 +1,34 @@
+.chat-wrapper {
+	position: relative;
+
+	width: auto;
+	height: 350px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.chatbox.chatbox-open {
+	background-color: white;
+	height: inherit;
+	width: 50%;
+	border: 1px solid black;
+}
+
+.chatbox-close {
+	visibility: hidden;
+}
+.chat-icon {
+	position: absolute;
+	bottom: 0px;
+	right: 30px;
+	border-radius: 50px;
+	background-color: var(--secondary-light-blue);
+	padding: 5px;
+	cursor: pointer;
+	border: none;
+	transition: all 0.2s ease-in-out;
+}
+
+.chat-icon:hover {
+	transform: scale(1.2);
+}
