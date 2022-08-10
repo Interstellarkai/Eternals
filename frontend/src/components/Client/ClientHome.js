@@ -11,7 +11,7 @@ const ClientHome = () => {
 		const container = document.getElementById("content-container")
 
 		window.microstrategy.dossier.create({
-			url:"https://env-262122.customer.cloud.microstrategy.com/MicroStrategyLibrary/app/B7CA92F04B9FAE8D941C3E9B7E0CD754/134BC2D5C1443891388CEF8C9B640660/W352--K190",
+			url:"https://env-295372.customer.cloud.microstrategy.com/MicroStrategyLibrary/app/B7CA92F04B9FAE8D941C3E9B7E0CD754/134BC2D5C1443891388CEF8C9B640660/W352--K190",
 			enableResponsive: true,
 			containerHeight: '1000px',
 			placeholder: container

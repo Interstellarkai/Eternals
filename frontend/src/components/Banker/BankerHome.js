@@ -9,7 +9,7 @@ const BankerHome = () => {
 		const container = document.getElementById("content-container")
 
 		window.microstrategy.dossier.create({
-			url:"https://env-262122.customer.cloud.microstrategy.com/MicroStrategyLibrary/app/B7CA92F04B9FAE8D941C3E9B7E0CD754/D7C6D3AA0249540097D5A4AC2F7B49D2/K53--K46",
+			url:"https://env-295372.customer.cloud.microstrategy.com/MicroStrategyLibrary/app/B7CA92F04B9FAE8D941C3E9B7E0CD754/C33157555C437D420DFC26B988C83012/K53--K46",
 			enableResponsive: true,
 			containerHeight: '1000px',
 			placeholder: container
