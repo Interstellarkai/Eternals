@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
+# Flask Restful API
+from flask_restful import Api, Resource
+
 # MongoDB
 from bson import ObjectId
 import pymongo
@@ -19,7 +22,7 @@ load_dotenv()
 #*************** Setting up *************************#
 # Instantiate the app
 app = Flask(__name__)
-# app.json_encoder = CustomJSONEncoder
+api = Api(app)
 
 # CORS to handle external request (settings)
 CORS(app)
