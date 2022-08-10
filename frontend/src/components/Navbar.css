@@ -31,7 +31,7 @@
 .nav {
 	display: flex;
 	flex-direction: row;
-	padding: 20px;
+	padding: 10px;
 	background-color: white;
 	height: auto;
 	border-bottom: 1px solid var(--primary-gray);
