@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ClientAcad.css';
 import { Link } from 'react-router-dom';
 import AcadCard from './AcadCard';
+import Navbar from '../Navbar';
 const ClientAcad = () => {
-	const [slide, setSlide] = useState(0);
 	return (
 		<>
-			<div className='top-nav'>
-				<Link to='/client/home'>
-					<div className='logo-left'></div>
-				</Link>
-				<div className='logo-right'>Citi Academy</div>
-			</div>
+			<Navbar view='client' />
 			<div className='acad-wrapper'>
 				<h2>Wealth Management Make Easy</h2>
 				<p>
