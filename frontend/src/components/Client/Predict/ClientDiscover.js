@@ -1,7 +1,13 @@
 import React from 'react';
 import Navbar from '../../Navbar';
+import {useNavigate } from 'react-router-dom'
 import './ClientDiscover.css';
 const ClientDiscover = () => {
+	let navigate = useNavigate(); 
+	const routeChange = ()=>{
+		let path = `/predict/tsla`;
+		navigate(path);
+	}
 	return (
 		<>
 			<Navbar view='client' />
@@ -26,7 +32,8 @@ const ClientDiscover = () => {
 						<h1>Our Recommendations for you</h1>
 					</div>
 					<div className='recom-content'>
-						<button className='recom-card-telsa'></button>
+					
+						<button className='recom-card-telsa' onClick={routeChange}></button>
 						<button className='recom-card-apple'></button>
 						<button className='recom-card-micro'></button>
 						<button className='recom-card-netflix'></button>
