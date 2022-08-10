@@ -1,0 +1,113 @@
+.predict-wrapper {
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 20px;
+}
+.predict-title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	border-bottom: 1px solid gray;
+}
+.predict-title > h1 {
+	font-weight: 700;
+}
+
+.predict-title > h2 {
+	font-weight: 100;
+}
+.predict-stock-info {
+	display: flex;
+	flex-direction: row;
+	padding-top: 20px;
+	justify-content: space-between;
+	padding-bottom: 20px;
+	border-bottom: 1px solid gray;
+}
+.predict-stock-sector,
+.predict-stock-open,
+.predict-stock-change,
+.predict-stock-range {
+	flex: 1;
+	margin-right: 40px;
+	position: relative;
+}
+.predict-stock-sector,
+.predict-stock-open,
+.predict-stock-change {
+	flex: 1;
+	margin-right: 40px;
+	position: relative;
+	border-right: 1px solid gray;
+}
+
+/* .predict-stock-open:before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 100px;
+	height: 90px;
+	top: 10px;
+	left: -40px;
+	border-left: 1px solid gray;
+} */
+
+.predict-company {
+	padding-top: 10px;
+}
+.predict-company > h2 {
+	font-weight: 300;
+	padding-bottom: 5px;
+	border-bottom: 1px solid gray;
+}
+.predict-company > p {
+	padding-top: 10px;
+	text-align: justify;
+}
+.predict-forecast {
+	padding-top: 10px;
+}
+.predict-forecast > h2 {
+	border-bottom: 1px solid gray;
+	padding-bottom: 5px;
+	font-weight: 300;
+}
+
+.forecast-content-wrapper {
+	display: flex;
+	flex-direction: row;
+	padding-top: 20px;
+	justify-content: space-between;
+	padding-bottom: 20px;
+	border-bottom: 1px solid gray;
+	height: 80px;
+}
+
+.forecast-stock-price,
+.forecast-stock-rating {
+	flex: 1;
+	margin-right: 40px;
+	position: relative;
+}
+.forecast-stock-desc,
+.forecast-stock-date {
+	flex: 2;
+	margin-right: 40px;
+	position: relative;
+}
+
+.forecast-stock-price,
+.forecast-stock-desc,
+.forecast-stock-date {
+	margin-right: 40px;
+	position: relative;
+	border-right: 1px solid gray;
+}
+
+.forecast-stock-rating > h2 {
+	color: var(--primary--green);
+}
+.forecast-stock-price > h2 {
+	color: var(--primary--green);
+}

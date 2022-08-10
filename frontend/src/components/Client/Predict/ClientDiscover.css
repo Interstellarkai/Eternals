@@ -1,0 +1,138 @@
+.discover-wrapper {
+	margin: 40px;
+	height: auto;
+}
+
+.discover-search-container,
+.discover-recom-container {
+	height: 250px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.discover-recom-container {
+	height: 300px;
+}
+.search-title,
+.search-bar-div,
+.search-button-div,
+.recom-title,
+.recom-content {
+	flex: 1;
+}
+
+.search-button {
+	background: white;
+	border-radius: 999px;
+
+	box-sizing: border-box;
+	color: var(--secondary-light-blue);
+	cursor: pointer;
+
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 24px;
+	opacity: 1;
+	outline: 0 solid transparent;
+	padding: 8px 18px;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	width: fit-content;
+	word-break: break-word;
+	border: 0;
+	border: 2px solid var(--secondary-light-blue);
+}
+.search-button:hover {
+	box-shadow: var(--secondary-light-blue) 0 10px 20px -10px;
+}
+.search-bar {
+	border-radius: 5px;
+	height: 50px;
+	width: 750px;
+	padding-left: 10px;
+	border: 2px solid var(--primary-gray);
+	/* color: var(--secondary-light-blue); */
+	font-size: 16px;
+	/* font-weight: 700; */
+}
+.search-bar:focus {
+	outline: none !important;
+	border: 1px solid var(--secondary-light-blue);
+	box-shadow: 0 0 10px var(--secondary-light-blue);
+}
+.search-title > h1,
+.recom-title > h1 {
+	/* color: var(--secondary-light-blue); */
+}
+
+.recom-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	gap: 30px;
+}
+.recom-card-telsa {
+	flex: 1;
+	height: 200px;
+	position: relative;
+	top: 0;
+	transition: top ease 0.5s;
+	cursor: pointer;
+	border: none;
+	background-image: url('../../../assets/telsa.png');
+	background-size: 100% 100%;
+}
+.recom-card-apple {
+	flex: 1;
+	height: 200px;
+	position: relative;
+	top: 0;
+	transition: top ease 0.5s;
+	cursor: pointer;
+	border: none;
+	background-image: url('../../../assets/apple.png');
+	background-size: 100% 100%;
+}
+.recom-card-micro {
+	flex: 1;
+	height: 200px;
+	position: relative;
+	top: 0;
+	transition: top ease 0.5s;
+	cursor: pointer;
+	border: none;
+	background-image: url('../../../assets/microsoft.png');
+	background-size: 100% 100%;
+}
+.recom-card-netflix {
+	flex: 1;
+	height: 200px;
+	position: relative;
+	top: 0;
+	transition: top ease 0.5s;
+	cursor: pointer;
+	border: none;
+	background-image: url('../../../assets/netflix.png');
+	background-size: 100% 100%;
+}
+.recom-card-netflix:hover,
+.recom-card-apple:hover,
+.recom-card-telsa:hover,
+.recom-card-micro:hover {
+	top: -10px;
+	border: 2px solid var(--secondary-light-blue);
+	box-shadow: 0 0 10px var(--secondary-light-blue);
+	background-size: 100% 100%;
+}
+
+.recom-card-netflix,
+.recom-card-apple,
+.recom-card-telsa,
+.recom-card-micro {
+	background-color: white;
+	border: 2px solid var(--primary-gray);
+	border-radius: 10px;
+}
