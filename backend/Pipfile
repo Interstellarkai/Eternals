@@ -11,6 +11,8 @@ flask-cors = "*"
 pandas = "*"
 yfinance = "*"
 pymongo = "*"
+prophet = "*"
+yahoo-fin = "*"
 
 [dev-packages]
 

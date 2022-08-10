@@ -1,12 +1,14 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
+# MongoDB
 from bson import ObjectId
-
 import pymongo
 from pymongo import MongoClient
 
+# Utilities that we made
 import utilities
+from src.utilities import MasterProphet
 
 # For credentials
 import os
@@ -30,13 +32,18 @@ db = cluster["eternals"]
 USERS = db["users"]
 PORTFOLIOS = db["portfolios"]
 STORIES = db["stories"]
-#*************** Define the routes ******************#
+
+
+#***************   Default route   ******************#
 
 
 # Default route
 @app.route('/')
 def index() -> str:
     return jsonify({'success': 200})
+
+
+#***************       Users       ******************#
 
 
 # Create User
@@ -108,7 +115,8 @@ def deleteUser(id: str) -> str:
     return jsonify({'message': 'User Deleted'})
 
 
-# Porfolios
+#***************     Portfolios    ******************#
+
 
 # Create a portfolio
 @app.route('/portfolios', methods=['POST'])
@@ -178,6 +186,66 @@ def deletePortfolio(id: str) -> str:
     return jsonify({'message': 'Portfolio Deleted'})
 
 
-#*************** Run the App       ******************#
+#***************   AI prediction   ******************#
+
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    ticker = request.form["ticker"]
+    master_prophet = MasterProphet(ticker)
+
+    forecast = master_prophet.forecast()
+
+    actual_forecast = round(forecast.yhat[0], 2)
+    lower_bound = round(forecast.yhat_lower[0], 2)
+    upper_bound = round(forecast.yhat_upper[0], 2)
+    bound = round(((upper_bound - actual_forecast) +
+                   (actual_forecast - lower_bound) / 2), 2)
+
+    # To be printed on frontend
+    summary = master_prophet.info["summary"]
+    country = master_prophet.info["country"]
+    sector = master_prophet.info["sector"]
+    website = master_prophet.info["website"]
+    min_date = master_prophet.info["min_date"]
+    max_date = master_prophet.info["max_date"]
+
+    name = master_prophet.name
+    day_change = master_prophet.day_change
+    day_change_percentage = master_prophet.day_change_percentage
+    quote_table = master_prophet.quote_table
+    news = master_prophet.news
+    recommendation = master_prophet.recommendations
+    forecast_date = master_prophet.forecast_date.date()
+
+
+    return jsonify({
+        "ticker": ticker.upper(),
+        "name": name,
+        "quote_table": quote_table,
+        "day_change": day_change,
+        "day_change_percentage": day_change_percentage,
+        "news": news,
+        "recommendation": recommendation,
+        "sector": sector,
+        "country": country,
+        "website": website,
+        "summary": summary,
+        "min_date": min_date,
+        "max_date": max_date,
+        "forecast_date": forecast_date,
+        "forecast": actual_forecast,
+        "bound": bound
+    })
+
+
+#***************    Run the App    ******************#
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    HOST = os.environ.get("SERVER_HOST", "0.0.0.0")
+    try:
+        PORT = int(os.environ.get("SERVER_PORT", "5555"))
+    except ValueError:
+        PORT = 5000  # Would be an issue for mac user -> System preference, Sharing, Disable Airplay Receivers
+    app.run(HOST, PORT, debug=True)
