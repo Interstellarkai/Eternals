@@ -1,0 +1,268 @@
+import datetime
+import pandas as pd
+import yfinance as yf
+import prophet
+from yahoo_fin.stock_info import get_quote_table
+
+
+#***************     Ticker    ******************#
+
+
+class Ticker:
+    def __init__(self, ticker):
+        """
+        1. Creates a new instance of the class.
+        2. Sets the ticker to the ticker parameter.
+        3. Sets the socket to the yf.Ticker class.
+        4. Sets the info dictionary to the info dictionary from the yf.Ticker class.
+
+        - Actions – Corporate actions such as dividends and splits
+        - Analysis – EPS targets and revisions
+        - Info – Commonly queried data as a dictionary
+        - Recommendations – Analyst buy, hold and sell ratings
+        """
+        self.ticker = ticker
+        self.socket = yf.Ticker(self.ticker)
+        self.news = self.socket.news
+        self.info = {
+            "sector": self.socket.info["sector"],
+            "summary": self.socket.info["longBusinessSummary"],
+            "country": self.socket.info["country"],
+            "website": self.socket.info["website"],
+            "employees": self.socket.info["fullTimeEmployees"]
+        }
+        votes = list(self.socket.recommendations["To Grade"])
+        self.recommendations = max(set(votes), key=votes.count)
+        self.quote_table = get_quote_table(ticker)
+
+
+#***************     Portfolio     ******************#
+
+
+class Portfolio:
+    def __init__(self, tickers):
+        # tickers = [{"symbol": "AAPL", "shares": "100", "purchase_date": "2021-08-09", "oneDay": "0", "sevenDay": "0", "total": "0"}]
+        self.tickers = tickers
+        self.total_return = 0
+        self.total_one_day_return = 0
+        self.total_seven_day_return = 0
+        self.end_date = datetime.datetime.now().date()
+        self.update_tickers()
+        self.update_portfolio()
+
+    def update_tickers(self):
+        for ticker in self.tickers:
+            # attributes of ticker
+            symbol = yf.Ticker(ticker['symbol'])
+            shares = int(ticker['shares'])
+            purchase_date = datetime.datetime.strptime(
+                ticker['purchase_date'], "%Y-%m-%d").date()
+
+            # Get the stock exchange prices.
+            data = symbol.history(start=purchase_date, end=self.end_date)
+
+            # Difference in days
+            difference_in_days = (self.end_date - purchase_date).days
+            delta_seven = min(difference_in_days, 7)
+
+            # Update
+            ticker['oneDay'] = (data.Close.tail(
+                1).values[0] - data.Open.tail(1).values[0]) * shares
+            ticker['sevenDay'] = (data.Close.tail(
+                1).values[0] - data.Open.tail(delta_seven).values[0]) * shares
+            ticker['total'] = (data.Close.tail(1).values[0] -
+                               data.Open.head(1).values[0]) * shares
+
+            # 2 decimal point
+            ticker['oneDay'] = round(ticker['oneDay'], 2)
+            ticker['sevenDay'] = round(ticker['sevenDay'], 2)
+            ticker['total'] = round(ticker['total'], 2)
+
+    def update_portfolio(self):
+        for ticker in self.tickers:
+            self.total_return += ticker['total']
+            self.total_one_day_return += ticker['oneDay']
+            self.total_seven_day_return += ticker['sevenDay']
+
+        # 2 decimal point
+        self.total_return = round(self.total_return, 2)
+        self.total_one_day_return = round(self.total_one_day_return, 2)
+        self.total_seven_day_return = round(self.total_seven_day_return, 2)
+
+    def json_format(self):
+        res = {
+            "tickers": self.tickers,
+            "total_return": self.total_return,
+            "total_one_day_return": self.total_one_day_return,
+            "total_seven_day_return": self.total_seven_day_return
+        }
+        return res
+
+
+#***************   AI prediction   ******************#
+
+
+class Dataset:
+    def build_dataset(self):
+        """
+        1. Creates a new instance of the class `Dataset`
+        2. Calls the `build_dataset` method of the class `Dataset`
+        3. If the method returns True, the dataset is built successfully and is stored in the variable `self.dataset`
+        4. If the method returns False, the dataset is not built successfully and is not stored in the variable `self.dataset`
+        """
+        start_date = datetime.datetime(2010, 1, 1).date()
+        end_date = datetime.datetime.now().date()
+
+        try:
+            self.dataset = self.socket.history(
+                start=start_date, end=end_date, interval="1d").reset_index()
+            self.dataset.drop(
+                columns=["Dividends", "Stock Splits", "Volume"], inplace=True)
+            self.add_forecast_date()
+        except Exception as e:
+            print("Exception raised at: `utils.Dataset.build()", e)
+            return False
+        else:
+            return True
+
+    def add_forecast_date(self):
+        """
+        1. It takes the present date and adds one day to it.
+        2. It checks if the present date is a Saturday or a Sunday.
+        3. If it is a Saturday, it adds 7 days to the present date.
+        4. If it is a Sunday, it adds 6 days to the present date.
+        5. It then adds a new row to the dataset with the forecast date and the values of the columns 0 to 4 as 0.0.
+        6. It then concatenates the dataset with the new row.
+        """
+        present_date = self.dataset.Date.max()
+        day_number = pd.to_datetime(present_date).isoweekday()
+        if day_number in [5, 6]:
+            self.forecast_date = present_date + \
+                datetime.timedelta(days=(7-day_number) + 1)
+        else:
+            self.forecast_date = present_date + datetime.timedelta(days=1)
+        print("Present date:", present_date)
+        print("Valid Forecast Date:", self.forecast_date)
+        test_row = pd.DataFrame(
+            [[self.forecast_date, 0.0, 0.0, 0.0, 0.0]], columns=self.dataset.columns)
+        self.dataset = pd.concat([self.dataset, test_row])
+
+
+class FeatureEngineering(Dataset):
+    def create_features(self):
+        """
+        1. Builds the dataset by calling the build_dataset() method.
+        2. Creates the lag features by calling the create_lag_features() method.
+        3. Imputes the missing values by calling the impute_missing_values() method.
+        4. Drops the columns Open, High, Low from the dataset.
+        5. Prints the last 3 rows of the dataset.
+        """
+        status = self.build_dataset()
+        if status:
+            self.create_lag_features()
+            self.impute_missing_values()
+            self.dataset.drop(columns=["Open", "High", "Low"], inplace=True)
+            print(self.dataset.tail(3))
+            return True
+        else:
+            raise Exception("Dataset creation failed!")
+
+    def create_lag_features(self, periods=12):
+        """
+        1. Creates a new column for each lag period.
+        2. Assigns the shifted values to the new columns.
+        3. Returns True.
+        """
+        for i in range(1, periods+1):
+            self.dataset[f"Close_lag_{i}"] = self.dataset.Close.shift(
+                periods=i, axis=0)
+            self.dataset[f"Open_lag_{i}"] = self.dataset.Open.shift(
+                periods=i, axis=0)
+            self.dataset[f"High_lag_{i}"] = self.dataset.High.shift(
+                periods=i, axis=0)
+            self.dataset[f"Low_lag_{i}"] = self.dataset.Low.shift(
+                periods=i, axis=0)
+        return True
+
+    def impute_missing_values(self):
+        """
+        1. Loads the data from the CSV file.
+        2. Imputes missing values.
+        3. Stores the minimum and maximum date in the info dictionary.
+        4. Returns True.
+        """
+        self.dataset.fillna(0, inplace=True)
+        self.info["min_date"] = self.dataset.Date.min().date()
+        self.info["max_date"] = self.dataset.Date.max().date() - \
+            datetime.timedelta(days=1)
+        return True
+
+
+class MasterProphet(FeatureEngineering):
+    def __init__(self, ticker):
+        """
+        1. Creates a new instance of the class.
+        2. Sets the ticker to the ticker parameter.
+        3. Sets the socket to the yf.Ticker class.
+        4. Sets the info dictionary to the info dictionary from the yf.Ticker class.
+        """
+        self.ticker = ticker
+        self.socket = yf.Ticker(self.ticker)
+        self.news = self.socket.news
+        self.quote_table = get_quote_table(self.ticker)
+        self.info = {
+            "name": self.socket.info['longName'],
+            "day_change": (self.socket.Close.tail(1).values[0] - self.socket.Open.tail(1).values[0]),
+            "day_change_percentage": round((self.socket.Close.tail(1).values[0] - self.socket.Open.tail(1).values[0])/self.socket.Open.tail(1).values[0], 2),
+            "sector": self.socket.info["sector"],
+            "summary": self.socket.info["longBusinessSummary"],
+            "country": self.socket.info["country"],
+            "website": self.socket.info["website"],
+            "employees": self.socket.info["fullTimeEmployees"]
+        }
+        votes = list(self.socket.recommendations["To Grade"])
+        self.recommendations = max(set(votes), key=votes.count)
+
+    def build_model(self):
+        """
+        1. Creates a new instance of the Prophet class.
+        2. Adds all the columns in the dataset that have the word "lag" in them to the model.
+        3. Sets the seasonality to be yearly and weekly.
+        4. Builds the model.
+        5. If an exception is raised, it prints the exception and returns False.
+        6. If no exception is raised, it returns True.
+        """
+        additonal_features = [
+            col for col in self.dataset.columns if "lag" in col]
+        try:
+            self.model = prophet.Prophet(
+                yearly_seasonality=True, weekly_seasonality=True, seasonality_mode="additive")
+            for name in additonal_features:
+                self.model.add_regressor(name)
+        except Exception as e:
+            print("Exception raised at: `utilities.Prophet.build()`", e)
+            return False
+        else:
+            return True
+
+    def train_and_forecast(self):
+        """
+        1. Create a new model object.
+        2. Fit the model to the training data.
+        3. Predict the next day's close price.
+        4. Return the predicted close price.
+        """
+        self.model.fit(
+            df=self.dataset.iloc[:-1, :].rename(columns={"Date": "ds", "Close": "y"}))
+        return self.model.predict(self.dataset.iloc[-1:][[col for col in self.dataset if col != "Close"]].rename(columns={"Date": "ds"}))
+
+    def forecast(self):
+        """
+        1. Creates the features
+        2. Builds the model
+        3. Trains the model
+        4. Forecasts the model
+        """
+        self.create_features()
+        self.build_model()
+        return self.train_and_forecast()

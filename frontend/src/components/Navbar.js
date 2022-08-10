@@ -5,7 +5,7 @@ const Navbar = ({ view }) => {
 	return (
 		<div className='row'>
 			<div className='top-nav'>
-				<Link to='/client/home'>
+				<Link to='/'>
 					<div className='logo-left'></div>
 				</Link>
 				<div className='logo-right'>Logo Right</div>
@@ -22,6 +22,11 @@ const Navbar = ({ view }) => {
 							<li className='navItem'>
 								<Link to='/client/acad'>
 									<a className='listItem'>Citi Acad</a>
+								</Link>
+							</li>
+							<li className='navItem'>
+								<Link to='/client/discover'>
+									<a className='listItem'>Discover</a>
 								</Link>
 							</li>
 						</ul>
