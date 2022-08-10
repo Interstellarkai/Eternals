@@ -50,6 +50,7 @@ class Screener:
     Step 4: Filtering out all companies with ROE less than 15% since they are earning less than their cost of capital. High ROE companies have a robust business model, which generates increased earnings for the company typically.
     Step 5: Filtering out all companies with PE ratio greater than 25 since they are too expensive even for a high-quality company. This enables us to pick companies which are relatively cheaper as against their actual value. He points out that applying these filters enables us to reduce and even eliminate a lot of fundamental risks while ensuring a robust business model, strong earning potential and a good buying price.
 """
+
     def __init__(self, ticker):
         """
         """
@@ -247,6 +248,7 @@ class MasterProphet(FeatureEngineering):
             "ftWeekRange": table["52 Week Range"],
             "DayRange": table["Day's Range"],
             "Open": table['Open'],
+            "QuotePrice": round(table['Quote Price'], 2),
             "PreviousClose": table['Previous Close'],
         }
         self.info = {

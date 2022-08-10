@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Navbar from '../../Navbar';
 import './ClientPred.css';
 import { useParams } from 'react-router-dom';
-
+import ClipLoader from "react-spinners/ClipLoader";
 const ClientPred = () => {
 	const { id } = useParams();
 	const [data, setData] = useState(null);
@@ -24,7 +24,7 @@ const ClientPred = () => {
 	return (
 		<>
 			<Navbar view='client' />
-			{data === null ? <div>Loading</div> : <div className='predict-wrapper'>
+			{data === null ? <ClipLoader size={150} className='loading-spinner'/> : <div className='predict-wrapper'>
 				<div className='predict-title'>
 					<h1>{data.name}</h1>
 					<h2>NASDAQ:{id.toUpperCase()}</h2>
@@ -38,12 +38,12 @@ const ClientPred = () => {
 						<h2>USD {data.quote_table.Open}</h2>
 						<h3s>Open</h3s>
 						<h2>USD {data.quote_table.PreviousClose}</h2>
-						<h3s>Close</h3s>
+						<h3s>Prev Close</h3s>
 					</div>
 					<div className='predict-stock-change'>
-						<h2>{data.day_change} ({data.day_change} %)</h2>
+						<h2>{data.day_change} ({data.day_change_percentage} %)</h2>
 						<h3s>Change</h3s>
-						<h2>USD 871.270</h2>
+						<h2>USD {data.quote_table.QuotePrice}</h2>
 						<h3s>Price</h3s>
 					</div>
 					<div className='predict-stock-range'>
@@ -63,14 +63,18 @@ const ClientPred = () => {
 					<h2>Forecast Price</h2>
 					<div className='forecast-content-wrapper'>
 						<div className='forecast-stock-price'>
-							<h2>USD{data.forecast}</h2>
+							<h2>USD {data.forecast}</h2>
 							<h3s>(+- {data.bound} uncertainty)</h3s>
 						</div>
 						<div className='forecast-stock-desc'>
 							<h3s>
-								Based on our algothrim, the price target for TSLA is ${data.forecast} with
-								uncertainty of {data.bound}
+								Based on our algorithm, the price target for TSLA is USD {data.forecast} with
+								uncertainty of USD {data.bound}
 							</h3s>
+						</div>
+						<div className='forecast-date'>
+							<h2>{data.forecast_date}</h2>
+							<h3s>Forecast Date</h3s>
 						</div>
 						<div className='forecast-stock-date'>
 							<h2>{data.min_date} - {data.max_date}</h2>

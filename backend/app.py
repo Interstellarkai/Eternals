@@ -224,6 +224,11 @@ def predict(ticker: str) -> str:
     recommendation = master_prophet.recommendations
     forecast_date = master_prophet.forecast_date.date()
 
+    # Clean up date format
+    forecast_date = forecast_date.strftime("%m/%d/%Y")
+    min_date = min_date.strftime("%m/%d/%Y")
+    max_date = max_date.strftime("%m/%d/%Y")
+
     return jsonify({
         "ticker": ticker.upper(),
         "name": name,
