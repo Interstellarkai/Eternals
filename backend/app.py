@@ -24,7 +24,6 @@ load_dotenv()
 #*************** Setting up *************************#
 # Instantiate the app
 app = Flask(__name__)
-# api = Api(app)
 
 # CORS to handle external request (settings)
 CORS(app)

@@ -1,0 +1,72 @@
+{
+  "region": "ap-southeast-1",
+  "cognito": {
+    "poolId": "ap-southeast-1:389d0000-ca61-41df-941e-3f1362d41fc4",
+    "appUserPoolClientId": "5k298bdjthbj11blvbqhhqrfk3",
+    "appUserPoolName": "ap-southeast-1_xwUvGspfu",
+    "aws_cognito_region": "ap-southeast-1",
+    "region": "ap-southeast-1"
+  },
+  "connect": {
+    "contactFlowId": "",
+    "instanceId": "",
+    "apiGatewayEndpoint": "",
+    "promptForNameMessage": "Before starting a live chat, please tell me your name?",
+    "waitingForAgentMessage": "Thanks for waiting. An agent will be with you when available.",
+    "waitingForAgentMessageIntervalSeconds": "60",
+    "agentJoinedMessage": "{Agent} has joined.",
+    "agentLeftMessage": "{Agent} has left.",
+    "chatEndedMessage": "Chat ended.",
+    "attachChatTranscript": "false",
+    "liveChatTerms": "live chat"
+  },
+  "lex": {
+    "v2BotId": "4TLCRTSSU1",
+    "v2BotAliasId": "TSTALIASID",
+    "v2BotLocaleId": "en_US",
+    "botName": "4TLCRTSSU1",
+    "botAlias": "$LATEST",
+    "initialText": "Hi I am Citibot, your very own virtual banking companion. Say hi to begin.",
+    "initialSpeechInstruction": "Hi I am Citibot, your very own virtual banking companion. Say hi to begin.",
+    "initialUtterance": "",
+    "reInitSessionAttributesOnRestart": false,
+    "region": "ap-southeast-1",
+    "retryOnLexPostTextTimeout": "false",
+    "retryCountPostTextTimeout": "1"
+  },
+  "ui": {
+    "parentOrigin": "https://d2pnv9lysq27j5.cloudfront.net",
+    "toolbarTitle": "Citibot",
+    "toolbarLogo": "",
+    "positiveFeedbackIntent": "Thumbs up",
+    "negativeFeedbackIntent": "Thumbs down",
+    "helpIntent": "Help",
+    "enableLogin": false,
+    "enableLiveChat": false,
+    "forceLogin": false,
+    "AllowSuperDangerousHTMLInMessage": true,
+    "shouldDisplayResponseCardTitle": false,
+    "saveHistory": false,
+    "helpContent": {},
+    "enableSFX": false,
+    "minButtonContent": "",
+    "hideInputFieldsForButtonResponse": false,
+    "pushInitialTextOnRestart": false,
+    "directFocusToBotInput": false,
+    "showDialogStateIcon": false,
+    "backButton": false,
+    "messageMenu": true,
+    "hideButtonMessageBubble": false
+  },
+  "polly": {
+    "voiceId": "Salli"
+  },
+  "recorder": {
+    "preset": "speech_recognition"
+  },
+  "iframe": {
+    "iframeOrigin": "https://d2pnv9lysq27j5.cloudfront.net",
+    "shouldLoadIframeMinimized": false,
+    "iframeSrcPath": "/index.html#/?lexWebUiEmbed=true"
+  }
+}
