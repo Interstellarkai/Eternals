@@ -190,6 +190,15 @@ def deletePortfolio(id: str) -> str:
     PORTFOLIOS.delete_one({'_id': ObjectId(id)})
     return jsonify({'message': 'Portfolio Deleted'})
 
+#***************   Screener   ******************#
+
+
+# Get all the stocks that fit the WarrenBuffet and BenjaminGraham Criteria
+@app.route('/moderaterisk', methods=['GET'])
+def getModerateRisk() -> str:
+    moderate_risk = utilities.Screener().suggestion
+    return jsonify(moderate_risk)
+
 
 #***************   AI prediction   ******************#
 
@@ -247,7 +256,6 @@ def predict(ticker: str) -> str:
         "forecast": actual_forecast,
         "bound": bound
     })
-    # return jsonify({"message": 'hello'})
 
 
 #***************    Run the App    ******************#

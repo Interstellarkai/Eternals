@@ -1,9 +1,13 @@
 import datetime
+# DataScience
 import pandas as pd
+import numpy as np
+import math
+# Ticker
 import yfinance as yf
+from yahoo_fin.stock_info import get_data, tickers_sp500, get_quote_table, get_stats
+# AI
 import prophet
-import yahoo_fin as yfin
-from yahoo_fin.stock_info import get_quote_table
 
 
 #***************     Ticker    ******************#
@@ -51,25 +55,66 @@ class Screener:
     Step 5: Filtering out all companies with PE ratio greater than 25 since they are too expensive even for a high-quality company. This enables us to pick companies which are relatively cheaper as against their actual value. He points out that applying these filters enables us to reduce and even eliminate a lot of fundamental risks while ensuring a robust business model, strong earning potential and a good buying price.
 """
 
-    def __init__(self, ticker):
+    def __init__(self):
         """
+        Stock suggestion based on Benjamin Graham and Warren Buffett Model.
         """
-        self.ticker = ticker
-        self.socket = yf.Ticker(self.ticker)
-        self.news = self.socket.news
-        self.info = {
-            "sector": self.socket.info["sector"],
-            "summary": self.socket.info["longBusinessSummary"],
-            "country": self.socket.info["country"],
-            "website": self.socket.info["website"],
-            "employees": self.socket.info["fullTimeEmployees"]
-        }
-        votes = list(self.socket.recommendations["To Grade"])
-        self.recommendations = max(set(votes), key=votes.count)
-        self.quote_table = get_quote_table(ticker)
+        self.SP500 = tickers_sp500()
+        # self.suggestion = self.ben_graham()
 
+        # pre-run json to expedite viewing
+        self.suggestion = [
+            {'name':'Copart, Inc.', 'ticker': 'CPRT', 'debt_to_equity': 12.06, 'interest_coverage': 5.47, 'return_on_equity': 28.47, 'PE_ratio': 31.02},
+            {'name':'MarketAxess Holdings Inc.', 'ticker': 'MKTX', 'debt_to_equity': 8.55, 'interest_coverage': 12.85, 'return_on_equity': 23.91, 'PE_ratio': 36.9},
+            {'name':'Monster Beverage Corporation', 'ticker': 'MNST', 'debt_to_equity': 0.5, 'interest_coverage': 4.54, 'return_on_equity': 22.01, 'PE_ratio': 31.41},
+            {'name':'Monolithic Power Systems, Inc.', 'ticker': 'MPWR', 'debt_to_equity': 0.44, 'interest_coverage': 4.58, 'return_on_equity': 23.53, 'PE_ratio': 119.28},
+            {'name':'Vertex Pharmaceuticals Incorporated', 'ticker': 'VRTX', 'debt_to_equity': 8.0, 'interest_coverage': 4.75, 'return_on_equity': 24.65, 'PE_ratio': 35.47}
+            ]
 
-#***************     Portfolio     ******************#
+    def ben_graham(self):
+        res = []
+        for ticker in self.SP500:
+            DF = get_stats(ticker)
+            debt_to_equity = float(
+                DF.loc[DF['Attribute'] == 'Total Debt/Equity (mrq)']['Value'])
+            # print(debt_to_equity)
+            # Filter 1
+            if math.isnan(debt_to_equity) or debt_to_equity > 30:
+                continue
+
+            interest_coverage = float(
+                DF.loc[DF['Attribute'] == 'Current Ratio (mrq)']['Value'])
+            # print(interest_coverage)
+            # Filter 2
+            if math.isnan(interest_coverage) or interest_coverage < 4:
+                continue
+
+            return_on_equity = float(
+                (DF.loc[DF['Attribute'] == 'Return on Equity (ttm)']['Value']).str.rstrip("%"))
+            # print(return_on_equity)
+            # Filter 3
+            if math.isnan(return_on_equity) or return_on_equity < 15:
+                continue
+
+            PE_ratio = get_quote_table(ticker)["PE Ratio (TTM)"]
+            # print(PE_ratio)
+            # Filter 4
+            if math.isnan(PE_ratio) or PE_ratio < 25:
+                continue
+
+            stock = {
+                "name": yf.Ticker(ticker).info["longName"],
+                "ticker": ticker,
+                "debt_to_equity": debt_to_equity,
+                "interest_coverage": interest_coverage,
+                "return_on_equity": return_on_equity,
+                "PE_ratio": PE_ratio
+            }
+            print(stock)
+            res.append(stock)
+        return res
+
+    #***************     Portfolio     ******************#
 
 
 class Portfolio:
