@@ -1,6 +1,6 @@
 # Wealth Buddy Web Application
 
-Wealthy Buddy is an application built for CitiHackOver 2022 with the intention to positions Citi as the modern bank for wealth management solutions, to drive client acquisition and strengthen client relationships in the Asian market.
+### Wealthy Buddy is an application built for CitiHackOver 2022 with the intention to positions Citi as the modern bank for wealth management solutions, to drive client acquisition and strengthen client relationships in the Asian market.
 ---
 ## Key Features
 - Embedded Dashboards 
