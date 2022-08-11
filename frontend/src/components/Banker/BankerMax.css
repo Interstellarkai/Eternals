@@ -4,7 +4,8 @@
 	padding-top: 20px;
 	margin-bottom: 40px;
 }
-.max-title > h2 {
+.max-title > h2,
+.definition-title > h2 {
 	font-weight: 200;
 }
 .max-grid-title {
@@ -62,4 +63,30 @@
 .asset-text.asset-match {
 	font-weight: bold;
 	color: var(--primary--green);
+}
+.definition-wrapper {
+	margin-top: 20px;
+}
+
+.Collapsible {
+	margin-top: 20px;
+}
+.Collapsible__trigger {
+	display: block;
+	font-weight: 400;
+	text-decoration: none;
+	position: relative;
+	border: 1px solid white;
+	padding: 10px;
+	color: black;
+	font-size: 20px;
+	cursor: pointer;
+	background-color: var(--primary-light-blue);
+}
+
+.CustomTriggerCSS--open {
+	background-color: darkslateblue;
+}
+.collapse-text {
+	width: 100%;
 }
