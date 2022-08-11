@@ -9,7 +9,10 @@ Wealthy Buddy is an application built for CitiHackOver 2022 with the intention t
 - Portfolio optimization (https://github.com/ketan1741/Benjamin-Graham-and-Warren-Buffett-Model-Stock-Exchange-)
 
 ## Screenshots
-<img width="947" alt="Screenshot 2022-08-12 004157" src="https://user-images.githubusercontent.com/72592202/184187702-f6ff0ea4-f6cc-492f-8071-54af5d6e53fc.png">
+<img width="500" alt="Screen Shot 2022-08-12 at 12 42 07 AM" src="https://user-images.githubusercontent.com/72592202/184188994-c7d01bbb-71c1-4b4f-8b8e-c37c5418bf8a.png">
+<img width="500" alt="Screen Shot 2022-08-12 at 12 38 32 AM" src="https://user-images.githubusercontent.com/72592202/184189005-461fb44a-96e0-44fc-b7db-b2821970456a.png">
+<img width="500" alt="Screen Shot 2022-08-12 at 12 38 51 AM" src="https://user-images.githubusercontent.com/72592202/184189009-3202b5b8-c66d-466f-8241-1344658b6823.png">
+<img width="500" alt="Screen Shot 2022-08-12 at 12 39 02 AM" src="https://user-images.githubusercontent.com/72592202/184189014-579cdf3b-af8f-44d9-98f3-089502e0cfec.png">
 
 ## Getting Started
 
