@@ -266,5 +266,5 @@ if __name__ == "__main__":
     try:
         PORT = int(os.environ.get("SERVER_PORT", "5555"))
     except ValueError:
-        PORT = 5000  # Would be an issue for mac user -> System preference, Sharing, Disable Airplay Receivers
+        PORT = 8888  # Would be an issue for mac user -> System preference, Sharing, Disable Airplay Receivers
     app.run(HOST, PORT, debug=True)

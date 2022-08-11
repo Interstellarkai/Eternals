@@ -7,12 +7,14 @@ import AssetCard from './AssetCard';
 const BankerMax = () => {
 	const { state } = useLocation();
 	console.log(state);
-	const [data, setData] = useState([]);
-	useEffect(() => {
-		fetch(`http://127.0.0.1:5000/moderaterisk`)
-			.then((res) => res.json())
-			.then((data) => {
-				setData(data);
+	const [data, setData] = useState([])
+	useEffect(() => { 
+		fetch(`/moderaterisk`).then(
+			res => res.json()
+			
+		).then(
+			data=> {
+				setData(data)
 				console.log(data);
 			})
 			.catch((error) => {
