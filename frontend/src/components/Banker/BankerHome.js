@@ -35,7 +35,7 @@ const BankerHome = () => {
 
 			<div className="grid-container" id="grid-container">
 				<div className="header-container">
-					<h2>{"MicroStrategy Embedding SDK Example - "}{pageName}</h2>
+					{/* <h2>{"MicroStrategy Embedding SDK Example - "}{pageName}</h2> */}
 				</div>
 				<Menu></Menu>
 				<div className="content-container" id="content-container">
@@ -49,5 +49,3 @@ const BankerHome = () => {
 };
 
 export default BankerHome;
-
-// NEW BRANCH

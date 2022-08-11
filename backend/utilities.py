@@ -2,6 +2,7 @@ import datetime
 import pandas as pd
 import yfinance as yf
 import prophet
+import yahoo_fin as yfin
 from yahoo_fin.stock_info import get_quote_table
 
 
@@ -20,6 +21,38 @@ class Ticker:
         - Analysis – EPS targets and revisions
         - Info – Commonly queried data as a dictionary
         - Recommendations – Analyst buy, hold and sell ratings
+        """
+        self.ticker = ticker
+        self.socket = yf.Ticker(self.ticker)
+        self.news = self.socket.news
+        self.info = {
+            "sector": self.socket.info["sector"],
+            "summary": self.socket.info["longBusinessSummary"],
+            "country": self.socket.info["country"],
+            "website": self.socket.info["website"],
+            "employees": self.socket.info["fullTimeEmployees"]
+        }
+        votes = list(self.socket.recommendations["To Grade"])
+        self.recommendations = max(set(votes), key=votes.count)
+        self.quote_table = get_quote_table(ticker)
+
+
+#***************    Screener   ******************#
+
+
+class Screener:
+    """
+    Benjamin Graham and Warren Buffett Model:
+    - The model is a combination of the stock price and the stock volume.
+    Step 1: Filtering out all companies with sales less than Rs 250 cr. Companies with sales lower than this are very small companies and might not have the business stability and access to finance that is required for a safe investment. This eliminates the basic business risk.
+    Step 2: Filtering out all companies with debt to equity greater than 30%. Companies with low leverage are safer.
+    Step 3: Filtering out all companies with interest coverage ratio of less than 4. Companies with high interest coverage ratio have a highly reduced bankruptcy risk.
+    Step 4: Filtering out all companies with ROE less than 15% since they are earning less than their cost of capital. High ROE companies have a robust business model, which generates increased earnings for the company typically.
+    Step 5: Filtering out all companies with PE ratio greater than 25 since they are too expensive even for a high-quality company. This enables us to pick companies which are relatively cheaper as against their actual value. He points out that applying these filters enables us to reduce and even eliminate a lot of fundamental risks while ensuring a robust business model, strong earning potential and a good buying price.
+"""
+
+    def __init__(self, ticker):
+        """
         """
         self.ticker = ticker
         self.socket = yf.Ticker(self.ticker)
@@ -208,12 +241,20 @@ class MasterProphet(FeatureEngineering):
         """
         self.ticker = ticker
         self.socket = yf.Ticker(self.ticker)
+        self.name = self.socket.info['longName']
         self.news = self.socket.news
-        self.quote_table = get_quote_table(self.ticker)
+        table = get_quote_table(self.ticker)
+        self.quote_table = {
+            "ftWeekRange": table["52 Week Range"],
+            "DayRange": table["Day's Range"],
+            "Open": table['Open'],
+            "QuotePrice": round(table['Quote Price'], 2),
+            "PreviousClose": table['Previous Close'],
+        }
         self.info = {
             "name": self.socket.info['longName'],
-            "day_change": (self.socket.Close.tail(1).values[0] - self.socket.Open.tail(1).values[0]),
-            "day_change_percentage": round((self.socket.Close.tail(1).values[0] - self.socket.Open.tail(1).values[0])/self.socket.Open.tail(1).values[0], 2),
+            "day_change": round((self.quote_table["PreviousClose"] - self.quote_table["Open"]), 2),
+            "day_change_percentage": round(100 * (self.quote_table["PreviousClose"] - self.quote_table["Open"]) / self.quote_table["Open"], 2),
             "sector": self.socket.info["sector"],
             "summary": self.socket.info["longBusinessSummary"],
             "country": self.socket.info["country"],

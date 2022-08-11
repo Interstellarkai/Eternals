@@ -54,7 +54,7 @@
 } */
 
 .predict-company {
-	padding-top: 10px;
+	padding-top: 40px;
 }
 .predict-company > h2 {
 	font-weight: 300;
@@ -77,7 +77,7 @@
 .forecast-content-wrapper {
 	display: flex;
 	flex-direction: row;
-	padding-top: 20px;
+	padding-top: 40px;
 	justify-content: space-between;
 	padding-bottom: 20px;
 	border-bottom: 1px solid gray;
@@ -85,12 +85,12 @@
 }
 
 .forecast-stock-price,
-.forecast-stock-rating {
+.forecast-stock-rating,.forecast-date,.forecast-stock-desc {
 	flex: 1;
 	margin-right: 40px;
 	position: relative;
 }
-.forecast-stock-desc,
+
 .forecast-stock-date {
 	flex: 2;
 	margin-right: 40px;
@@ -99,7 +99,7 @@
 
 .forecast-stock-price,
 .forecast-stock-desc,
-.forecast-stock-date {
+.forecast-stock-date,.forecast-date {
 	margin-right: 40px;
 	position: relative;
 	border-right: 1px solid gray;
@@ -110,4 +110,9 @@
 }
 .forecast-stock-price > h2 {
 	color: var(--primary--green);
+}
+.loading-spinner{
+	position: absolute;
+	top: 50%;
+	left: 50%;
 }

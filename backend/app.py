@@ -1,3 +1,4 @@
+import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -11,6 +12,7 @@ from pymongo import MongoClient
 
 # Utilities that we made
 import utilities
+import datetime
 from utilities import MasterProphet
 
 # For credentials
@@ -192,9 +194,10 @@ def deletePortfolio(id: str) -> str:
 #***************   AI prediction   ******************#
 
 
-@app.route("/predict", methods=["POST"])
-def predict():
-    ticker = request.form["ticker"]
+@app.route("/predict/<ticker>", methods=["GET"])
+def predict(ticker: str) -> str:
+# @app.route("/predict", methods=["GET"])
+# def predict() -> str:
     master_prophet = MasterProphet(ticker)
 
     forecast = master_prophet.forecast()
@@ -214,13 +217,17 @@ def predict():
     max_date = master_prophet.info["max_date"]
 
     name = master_prophet.name
-    day_change = master_prophet.day_change
-    day_change_percentage = master_prophet.day_change_percentage
+    day_change = master_prophet.info["day_change"]
+    day_change_percentage = master_prophet.info["day_change_percentage"]
     quote_table = master_prophet.quote_table
     news = master_prophet.news
     recommendation = master_prophet.recommendations
     forecast_date = master_prophet.forecast_date.date()
 
+    # Clean up date format
+    forecast_date = forecast_date.strftime("%m/%d/%Y")
+    min_date = min_date.strftime("%m/%d/%Y")
+    max_date = max_date.strftime("%m/%d/%Y")
 
     return jsonify({
         "ticker": ticker.upper(),
@@ -228,7 +235,7 @@ def predict():
         "quote_table": quote_table,
         "day_change": day_change,
         "day_change_percentage": day_change_percentage,
-        "news": news,
+        # "news": news,
         "recommendation": recommendation,
         "sector": sector,
         "country": country,
@@ -240,6 +247,7 @@ def predict():
         "forecast": actual_forecast,
         "bound": bound
     })
+    # return jsonify({"message": 'hello'})
 
 
 #***************    Run the App    ******************#
