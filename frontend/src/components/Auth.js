@@ -7,7 +7,7 @@ const Auth = () => {
 			<div className='bg-image'></div>
 			<div className='auth-content'>
 				<div className='auth-title'>
-					<h1>Welcome To Eternals</h1>
+					<h1>Welcome To Wealth Buddy</h1>
 					<p>
 						<br />
 						Your one stop solution for wealth management!
@@ -17,11 +17,11 @@ const Auth = () => {
 					<h2>I am a...</h2>
 				</div>
 				<div className='content-wrapper'>
-					<div className='auth-left'>
+					<button className='auth-left'>
 						<Link to='/client/home'>
 							<p className='auth-text'>Client</p>
 						</Link>
-					</div>
+					</button>
 					<div className='auth-right'>
 						<Link to='/banker/home'>
 							<p className='auth-text'>Banker</p>

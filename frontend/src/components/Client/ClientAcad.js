@@ -47,10 +47,9 @@ const ClientAcad = () => {
 					Learn from our interactive courses to increase your finanical literacy
 				</p>
 				<div className='acad-content'>
-					<AcadCard />
-					<AcadCard />
-					<AcadCard />
-					<AcadCard />
+					{acadVideos.map((item, index) => (
+						<AcadCard item={item} key={index} />
+					))}
 				</div>
 			</div>
 		</>
