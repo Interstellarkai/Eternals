@@ -1,8 +1,11 @@
-# MERN Stack Course
----
-## Learning Outcome
-I have learnt how to use the MERN stack by building a Restaurant Reviews Web Application
+# Wealth Buddy Web Application
 
+Wealthy Buddy is an application built for CitiHackOver 2022 with the intention to positions Citi as the modern bank for wealth management solutions, to drive client acquisition and strengthen client relationships in the Asian market.
+---
+## Key Features
+- Embedded Dashboards 
+- Stock price prediction built with WallStreetAI - Stock Price Predictor(https://github.com/Interstellarkai/WallStreetAI)
+- AI chat built with Lex
 ## Course Objectives 
 - Learn how to build a full stack web application using the MERN Stack 
 - Convert the backend to serverless to host on MongoDB 
