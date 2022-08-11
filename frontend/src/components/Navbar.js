@@ -8,7 +8,7 @@ const Navbar = ({ view }) => {
 				<Link to='/'>
 					<div className='logo-left'></div>
 				</Link>
-				<div className='logo-right'>Logo Right</div>
+				<div className='logo-right'>Wealth Buddy</div>
 			</div>
 			{view === 'client' ? (
 				<>
