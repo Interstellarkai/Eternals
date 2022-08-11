@@ -1,5 +1,6 @@
 import React from 'react';
 import image1 from '../../assets/1.jpg';
+import image2 from '../../assets/2.jpg';
 import { AiFillStar } from 'react-icons/ai';
 import { BiTimeFive } from 'react-icons/bi';
 import { BsFiles, BsLightbulb } from 'react-icons/bs';
@@ -7,13 +8,13 @@ const AcadCard = ({ item }) => {
 	return (
 		<div className='card'>
 			<div className='card-image-wrapper'>
-				<img src={image1} alt='image' className='card-image' />
+				<img src={item.img} alt='image' className='card-image' />
 			</div>
 			<div className='card-title'>
 				<h4>{item.title}</h4>
 				<button className='card-rating'>
 					<AiFillStar color='yellow' />
-					<p>5.0</p>
+					<p>{item.rating}</p>
 				</button>
 			</div>
 			<div className='card-subtitle'>
