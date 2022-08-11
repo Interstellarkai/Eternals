@@ -1,0 +1,69 @@
+.port-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 80vh;
+}
+
+.port-container {
+	height: 60vh;
+	width: 60%;
+	border: 1px solid gray;
+	border-radius: 5px;
+	box-shadow: 5px 5px 5px 5px #888888;
+}
+.port-title {
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid gray;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+.port-age > h3,
+.port-risk > h3 {
+	font-weight: 500;
+	padding-bottom: 10px;
+}
+
+.port-age,
+.port-risk,
+.port-btn-container {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
+}
+.port-btn-container {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	padding-top: 40px;
+}
+.port-btn {
+	background: white;
+	border-radius: 999px;
+
+	box-sizing: border-box;
+	color: var(--secondary-light-blue);
+	cursor: pointer;
+
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 24px;
+	opacity: 1;
+	outline: 0 solid transparent;
+	padding: 8px 18px;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	width: fit-content;
+	word-break: break-word;
+	border: 0;
+	border: 2px solid var(--secondary-light-blue);
+}
+
+.port-btn:hover {
+	box-shadow: var(--secondary-light-blue) 0 10px 20px -10px;
+}
