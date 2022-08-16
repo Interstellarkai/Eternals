@@ -22,6 +22,7 @@ https://www.youtube.com/watch?v=LAqM7PtSQRQ
 <img width="700" alt="Screen Shot 2022-08-12 at 12 42 07 AM" src="https://user-images.githubusercontent.com/72592202/184189413-1f2d92fd-b0d2-41d3-80da-3346d856b746.png">
 <img width="700" alt="Screen Shot 2022-08-12 at 12 38 51 AM" src="https://user-images.githubusercontent.com/72592202/184189426-809a74c9-02c0-487e-93a7-ce1af864c986.png">
 <img width="700" alt="Screen Shot 2022-08-12 at 12 38 32 AM" src="https://user-images.githubusercontent.com/72592202/184189432-cb0c9b80-aeaf-4baf-a28c-71f7d0061736.png">
+
 ## Getting Started
 
 Download or clone project from github:
