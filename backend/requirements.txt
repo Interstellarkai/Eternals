@@ -33,7 +33,7 @@ numpy==1.23.1
 packaging==21.3
 pandas==1.4.3
 parse==1.19.0
-pillow==9.2.0
+pillow==9.3.0
 prophet==1.1
 pyee==8.2.2
 pymeeus==0.5.11
