@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "bootstrap": "^5.3.1",
-    "react-router-dom": "^6.15.0"
+    "react-router-dom": "^6.16.0"
   }
 }
