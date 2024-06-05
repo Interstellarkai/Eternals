@@ -19,7 +19,7 @@ feedparser==6.0.10; python_version >= '3.6'
 flask==3.0.3; python_version >= '3.8'
 flask-cors==4.0.1
 flask-pymongo==2.3.0
-fonttools==4.39.4; python_version >= '3.8'
+fonttools==4.43.0; python_version >= '3.8'
 holidays==0.25; python_version >= '3.7'
 idna==3.4; python_version >= '3.5'
 importlib-metadata==7.1.0; python_version < '3.10'
