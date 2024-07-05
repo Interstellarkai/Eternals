@@ -3,7 +3,7 @@ appdirs==1.4.4
 beautifulsoup4==4.12.2; python_version >= '3.6'
 blinker==1.8.2; python_version >= '3.8'
 bs4==0.0.1
-certifi==2023.5.7; python_version >= '3.6'
+certifi==2024.7.4; python_version >= '3.6'
 charset-normalizer==3.1.0; python_version >= '3.7'
 click==8.1.7; python_version >= '3.7'
 cmdstanpy==1.1.0; python_version >= '3.7'
