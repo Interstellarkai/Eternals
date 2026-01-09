@@ -59,7 +59,7 @@ tqdm==4.65.0; python_version >= '3.7'
 urllib3==2.6.3; python_version >= '3.9'
 w3lib==2.1.1; python_version >= '3.7'
 websockets==10.4; python_version >= '3.7'
-werkzeug==3.1.4; python_version >= '3.9'
+werkzeug==3.1.5; python_version >= '3.9'
 wheel==0.40.0; python_version >= '3.7'
 yahoo-fin==0.8.9.1
 yfinance==0.1.74
